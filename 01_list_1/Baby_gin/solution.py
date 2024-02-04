@@ -11,21 +11,28 @@ for tc in range(1, T+1):
     for num in arr:
         counts[num] += 1
 
-    cnt_run = 0
-    cnt_triplet = 0
+    cnt = 0
+    idx = 0
 
-    for i in range(len(counts)-2):
-        if counts[i] == 3:
-            cnt_triplet += 1
-            counts[i] -= 3
-        elif counts[i] >= 1 and counts[i+1] >= 1 and counts[i+2] >= 1:
-            cnt_run += 1
-            counts[i] -= 1
-            counts[i+1] -= 1
-            counts[i+2] -= 1
+    while idx < len(counts):
+        if counts[idx] >= 3:
+            cnt += 1
+            counts[idx] -= 3
+            continue
+        idx += 1
+
+    idx = 0
+    while idx < len(counts) - 2:
+        if counts[idx] >= 1 and counts[idx+1] >= 1 and counts[idx+2] >= 1:
+            cnt += 1
+            counts[idx] -= 1
+            counts[idx+1] -= 1
+            counts[idx+2] -= 1
+            continue
+        idx += 1
 
     print(f'#{tc}', end=' ')
-    if cnt_run + cnt_triplet == 2:
+    if cnt == 2:
         print('baby-gin')
     else:
         print('not baby-gin')
